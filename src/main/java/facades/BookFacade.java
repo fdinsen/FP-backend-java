@@ -56,11 +56,14 @@ public class BookFacade {
         }  
     }
     
-    public void addBookToPerson(BookDTO bookdto, int userId) {
+    public void addBookToPerson(BookDTO bookdto, String username) {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            User user = em.find(User.class, userId);
+            User user = em.find(User.class, username);
+            if(user == null) {
+                user = UserFacade.getUserFacade(emf).createUser(username);
+            }
             Author author = em.find(Author.class, bookdto.getAuthorName());
             Book book;
             if(author != null) {

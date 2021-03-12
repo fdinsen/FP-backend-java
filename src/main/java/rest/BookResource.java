@@ -51,14 +51,14 @@ public class BookResource {
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
     
-    @Path("add/{userid}")
+    @Path("add/{username}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addBookToUser(String json, @PathParam("userid") int id) {
+    public String addBookToUser(String json, @PathParam("userid") String username) {
         BookDTO book = GSON.fromJson(json, BookDTO.class);
-        FACADE.addBookToPerson(book, id);
-        return "{\"msg\":\"Added " + book.getTitle() + " to user with id: " + id + "\"";
+        FACADE.addBookToPerson(book, username);
+        return "{\"msg\":\"Added " + book.getTitle() + " to user " + username + "\"";
     }
     
     //I know this should be a GET, but I'm too tired to work around how to get the user information atm

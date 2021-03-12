@@ -35,11 +35,20 @@ public class UserFacade {
         try {
             user = em.find(User.class, username);
             if (user == null) {
-                throw new NotFoundException("Invalid user name or password");
+                user = createUser(username);
             }
         } finally {
             em.close();
         }
+        return user;
+    }
+    
+    public User createUser(String username) {
+        EntityManager em = emf.createEntityManager();
+        User user = new User(username);
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
         return user;
     }
 
