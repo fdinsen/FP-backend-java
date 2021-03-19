@@ -5,6 +5,7 @@
  */
 package dto;
 
+import entities.Book;
 import entities.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,9 @@ public class UserDTO {
     public UserDTO(User user) {
         this.username = user.getUsername();
         books = new ArrayList();
+        for(Book book : user.getBooksOwned()) {
+            books.add(new BookDTO(book));
+        }
     }
 
     public long getId() {

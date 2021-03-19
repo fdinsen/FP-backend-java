@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.BookDTO;
 import dto.UserDTO;
+import errorhandling.NotFoundException;
 import utils.EMF_Creator;
 import facades.BookFacade;
 import java.io.IOException;
@@ -55,20 +56,18 @@ public class BookResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String addBookToUser(String json, @PathParam("userid") String username) {
+    public String addBookToUser(String json, @PathParam("username") String username) {
         BookDTO book = GSON.fromJson(json, BookDTO.class);
         FACADE.addBookToPerson(book, username);
-        return "{\"msg\":\"Added " + book.getTitle() + " to user " + username + "\"";
+        return "{\"msg\":\"Added " + book.getTitle() + " to user " + username + "\"}";
     }
     
     //I know this should be a GET, but I'm too tired to work around how to get the user information atm
-    @Path("booksbyuser")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("booksbyuser/{username}")
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBooksOnUser(String user) {
-        UserDTO dtouser = GSON.fromJson(user, UserDTO.class);
-        return Response.ok().entity(FACADE.getAllBooksOnPerson(dtouser.getUsername())).build();
+    public Response getBooksOnUser(@PathParam("username") String user) throws NotFoundException {
+        return Response.ok().entity(GSON.toJson(FACADE.getAllBooksOnPerson(user))).build();
     }
     
 }

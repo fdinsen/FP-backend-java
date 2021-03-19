@@ -37,8 +37,8 @@ public class Book implements Serializable {
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Author author;
 
-    @ManyToMany(mappedBy = "booksOwned", cascade = CascadeType.PERSIST)
-    List<User> users = new ArrayList();
+//    @ManyToMany(mappedBy = "booksOwned", cascade = CascadeType.PERSIST)
+//    List<User> users = new ArrayList();
 
     public Book() {
     }
@@ -75,21 +75,21 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public void addUser(User user) {
-        if (user != null) {
-            users.add(user);
-            if(!(user.getBooksOwned().contains(this)) ) {
-                user.addBook(this);
-            }
-        }
-    }
+//    public List<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
+//
+//    public void addUser(User user) {
+//        if (user != null) {
+//            users.add(user);
+//            if(!(user.getBooksOwned().contains(this)) ) {
+//                user.addBook(this);
+//            }
+//        }
+//    }
 
 }

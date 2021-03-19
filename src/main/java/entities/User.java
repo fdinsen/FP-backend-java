@@ -71,9 +71,9 @@ public class User implements Serializable {
     public void addBook(Book book ) {
         if(book != null) {
             booksOwned.add(book);
-            if(!(book.getUsers().contains(this)) ) {
-                book.addUser(this);
-            }
+//            if(!(book.getUsers().contains(this)) ) {
+//                book.addUser(this);
+//            }
         }
     }
     
